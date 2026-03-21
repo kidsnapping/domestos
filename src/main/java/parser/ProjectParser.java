@@ -20,13 +20,13 @@
             this.projectRoot = projectRoot;
         }
 
-        // метод для передачи
+        // Метод для передачи
         public ProjectModel parseProject() {
             ProjectModel projectModel = new ProjectModel();
 
             List<Path> javaFiles = findJavaFiles(); // список файлов, полученный после поиска
 
-            // обрабатываем каждый файл
+            // Обрабатываем каждый файл
             for (Path file : javaFiles) {
                 try {
                     FileParser fileParser = new FileParser(file); // считать файл
@@ -44,11 +44,11 @@
             return projectModel;
         }
 
-        // поиск файлов .java
+        // Поиск файлов .java
         private List<Path> findJavaFiles() {
             List<Path> javaFiles = new ArrayList<>();
 
-            // начало поиска, выбор путей и файлов
+            // Начало поиска, выбор путей и файлов
             try (Stream<Path> paths = Files.walk(projectRoot)) {
                 paths
                         .filter(Files::isRegularFile) // фильтрация, оставляем только файлы
