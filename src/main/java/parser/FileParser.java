@@ -6,7 +6,6 @@ import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import model.ClassModel;
 import model.MethodModel;
-
 import java.io.IOException;
 import java.nio.file.Path;
 
