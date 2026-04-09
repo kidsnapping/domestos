@@ -16,7 +16,7 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
         return classModel;
     }
 
-    // Обработка класса
+    // Класс
     @Override
     public void visit(ClassOrInterfaceDeclaration c, Void arg) {
         classModel = new ClassModel();
@@ -25,48 +25,66 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
         super.visit(c, arg);
     }
 
-    // Обработка метода
+    // Метод
     @Override
     public void visit(MethodDeclaration m, Void arg) {
         currentMethod = new MethodModel();
+
         currentMethod.setName(m.getNameAsString());
         currentMethod.setParameterCount(m.getParameters().size());
 
-        // строки метода
+        // строки
         if (m.getBegin().isPresent() && m.getEnd().isPresent()) {
-            currentMethod.setLineCount(m.getEnd().get().line - m.getBegin().get().line + 1);
+            currentMethod.setLineCount(
+                    m.getEnd().get().line - m.getBegin().get().line + 1
+            );
         }
 
-        currentMethod.setComplexity(1); // базовая сложность
-
         super.visit(m, arg);
-
         classModel.addMethod(currentMethod);
     }
 
-    // if -> сложность
+    // if
     @Override
     public void visit(IfStmt n, Void arg) {
         if (currentMethod != null) {
-            currentMethod.setComplexity(currentMethod.getComplexity() + 1);
+            currentMethod.incrementIfCount();
         }
         super.visit(n, arg);
     }
 
-    // for -> сложность
+    // for
     @Override
     public void visit(ForStmt n, Void arg) {
         if (currentMethod != null) {
-            currentMethod.setComplexity(currentMethod.getComplexity() + 1);
+            currentMethod.incrementLoopCount();
         }
         super.visit(n, arg);
     }
 
-    // while -> сложность
+    // while
     @Override
     public void visit(WhileStmt n, Void arg) {
         if (currentMethod != null) {
-            currentMethod.setComplexity(currentMethod.getComplexity() + 1);
+            currentMethod.incrementLoopCount();
+        }
+        super.visit(n, arg);
+    }
+
+    // switch
+    @Override
+    public void visit(SwitchStmt n, Void arg) {
+        if (currentMethod != null) {
+            currentMethod.incrementSwitchCount();
+        }
+        super.visit(n, arg);
+    }
+
+    // try-catch
+    @Override
+    public void visit(TryStmt n, Void arg) {
+        if (currentMethod != null) {
+            currentMethod.incrementTryCount();
         }
         super.visit(n, arg);
     }
