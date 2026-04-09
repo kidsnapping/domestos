@@ -23,32 +23,13 @@ public class FileParser {
         // Парсим .java файла в AST
         CompilationUnit cu = StaticJavaParser.parse(javaFile);
 
-        // Ищем все классы/интерфейсы в файле
-        cu.findAll(ClassOrInterfaceDeclaration.class).forEach(c -> {
-            // Сохраняем имя класса
-            classModel.setName(c.getNameAsString());
+        // Создание visitor
+        ASTVisitor visitor = new ASTVisitor();
 
-            // Перебираем все методы класса
-            for (MethodDeclaration method : c.getMethods()) {
-                MethodModel methodModel = new MethodModel();
-                methodModel.setName(method.getNameAsString());
-                methodModel.setParameterCount(method.getParameters().size());
+        // Запуск обхода древа
+        visitor.visit(cu, null);
 
-                // Количество строк метода
-                if (method.getBegin().isPresent() && method.getEnd().isPresent()) {
-                    methodModel.setLineCount(method.getEnd().get().line - method.getBegin().get().line + 1);
-                } else {
-                    methodModel.setLineCount(0); // если информация недоступна
-                }
-
-                // Пока ставим заглушку для сложности
-                methodModel.setComplexity(1);
-
-                // Добавляем метод в класс
-                classModel.addMethod(methodModel);
-            }
-        });
-
-        return classModel;
+        // Получение результата
+        return visitor.getClassModel();
     }
 }
