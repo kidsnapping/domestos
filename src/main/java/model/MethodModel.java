@@ -1,10 +1,15 @@
 package model;
 
 public class MethodModel {
+
     private String name;
     private int parameterCount;
     private int lineCount;
-    private int complexity;
+
+    private int ifCount;
+    private int loopCount;
+    private int switchCount;
+    private int tryCount;
 
     public String getName() {
         return name;
@@ -30,11 +35,35 @@ public class MethodModel {
         this.lineCount = lineCount;
     }
 
-    public int getComplexity() {
-        return complexity;
+    public int getIfCount() {
+        return ifCount;
     }
 
-    public void setComplexity(int complexity) {
-        this.complexity = complexity;
+    public int getLoopCount() {
+        return loopCount;
+    }
+
+    public int getSwitchCount() {
+        return switchCount;
+    }
+
+    public int getTryCount() {
+        return tryCount;
+    }
+
+    public void incrementIfCount() {
+        this.ifCount++;
+    }
+
+    public void incrementLoopCount() {
+        this.loopCount++;
+    }
+
+    public void incrementSwitchCount() {
+        this.switchCount++;
+    }
+
+    public void incrementTryCount() {
+        this.tryCount++;
     }
 }
