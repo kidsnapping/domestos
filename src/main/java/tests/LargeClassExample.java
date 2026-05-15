@@ -1,13 +1,11 @@
 package tests;
 
 public class LargeClassExample {
-
     private String textContext;
 
     public LargeClassExample(String textContext) {
         this.textContext = textContext;
     }
-
     public void processString1() { System.out.println("Обработка 1"); }
     public void processString2() { System.out.println("Обработка 2"); }
     public void processString3() { System.out.println("Обработка 3"); }
@@ -18,7 +16,6 @@ public class LargeClassExample {
     public void processString8() { System.out.println("Обработка 8"); }
     public void processString9() { System.out.println("Обработка 9"); }
     public void processString10() { System.out.println("Обработка 10"); }
-
     public void validateInput1() { System.out.println("Валидация 1"); }
     public void validateInput2() { System.out.println("Валидация 2"); }
     public void validateInput3() { System.out.println("Валидация 3"); }
@@ -29,7 +26,6 @@ public class LargeClassExample {
     public void validateInput8() { System.out.println("Валидация 8"); }
     public void validateInput9() { System.out.println("Валидация 9"); }
     public void validateInput10() { System.out.println("Валидация 10"); }
-
     public void transformFormat1() { System.out.println("Трансформация 1"); }
     public void transformFormat2() { System.out.println("Трансформация 2"); }
     public void transformFormat3() { System.out.println("Трансформация 3"); }
