@@ -1,5 +1,7 @@
 package model;
 
+import metrics.CyclomaticComplexityMetric;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +13,34 @@ public class ClassModel {
 
     private int methodCount;
     private int totalLines;
+    private int fieldCount;
 
     private int totalIfCount;
     private int totalLoopCount;
     private int totalSwitchCount;
     private int totalTryCount;
 
+    public void incrementFieldCount() {
+        fieldCount++;
+    }
+
+    public int getFieldCount() {
+        return fieldCount;
+    }
+
+    public int getTotalComplexity() {
+
+        CyclomaticComplexityMetric metric =
+                new CyclomaticComplexityMetric();
+
+        int total = 0;
+
+        for (MethodModel method : methods) {
+            total += metric.calculate(method);
+        }
+
+        return total;
+    }
 
     public String getName() {
         return name;

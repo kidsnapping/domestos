@@ -9,7 +9,7 @@ public class ComplexMethodSmell {
 
     private final CyclomaticComplexityMetric metric = new CyclomaticComplexityMetric();
 
-    public boolean isSmelly(MethodModel method) {
+    public boolean isComplex(MethodModel method) {
         int complexity = metric.calculate(method);
         return complexity > MAX_COMPLEXITY;
     }
